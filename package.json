@@ -1,0 +1,21 @@
+{
+  "name": "modelist",
+  "version": "0.1.0",
+  "description": "Flexible modelstructure for clean data managment",
+  "main": "dist/index.js",
+  "author": "Roman Kuba <roman.kuba@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.0.3",
+    "webpack": "webpack/webpack#next",
+    "webpack-cli": "^1.5.3"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "jest"
+  }
+}
