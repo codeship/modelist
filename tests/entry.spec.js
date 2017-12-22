@@ -45,5 +45,7 @@ describe('Entry', () => {
       const entry = Entry(data).map(capitalizeName)
       expect(entry.fold().name).toBe('BANANA')
     })
+
+
   })
 })

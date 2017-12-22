@@ -1,3 +1,3 @@
 import Model from './model'
 
-export default Model
+module.exports = Model

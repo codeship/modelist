@@ -11,9 +11,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "jest": "^22.0.3",
-    "lodash-es": "^4.17.4",
+    "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "webpack/webpack#next",
     "webpack-cli": "^1.5.3"
+  },
+  "peerDependencies": {
+    "lodash-es": "^4.17.4"
   },
   "scripts": {
     "build": "webpack",

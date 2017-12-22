@@ -9,8 +9,8 @@ export default class {
   // Key used by find, replace, update method to identify the record
   primaryKey = 'id'
 
-  constructor(initialData = []) {
-    this._collection = [...initialData]
+  constructor(entries = []) {
+    this._collection = [...entries]
   }
 
   // Return all records
@@ -33,7 +33,7 @@ export default class {
   // Find a record by the primary key
   find(key) {
     const index = this.__findByKey(this.primaryKey, key)
-    return isUndefined(index) ? null : this._collection[index]
+    return isUndefined(index) ? null : this.__wrap(this._collection[index])
   }
 
   // Return length of current collection
@@ -55,4 +55,7 @@ export default class {
     return undefined
   }
 
+  __wrap(value) {
+    return Entry(value)
+  }
 }

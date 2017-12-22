@@ -1,4 +1,5 @@
 import Model from '../src/model'
+import Entry from '../src/entry'
 
 describe('Model', () => {
   test('#constructor takes some default values', () => {
@@ -7,10 +8,10 @@ describe('Model', () => {
     expect(model.all()).toEqual(data)
   })
 
-  test('#find returns an element based on the primary key and null if none is found', () => {
+  test('#find returns an Entry based on the primary key and null if none is found', () => {
     const data = [{id: 1, name: 'Shoes'}, {id: 2, name: 'Jackets'}]
     const model = new Model(data)
-    expect(model.find(1)).toEqual(data[0])
+    expect(model.find(1).fold()).toEqual(data[0])
     expect(model.find(3)).toEqual(null)
   })
 
@@ -30,7 +31,7 @@ describe('Model', () => {
       const fruits = new Fruits
       fruits.record({name: 'Banana'}, {name: 'Apple'})
       expect(fruits.size).toBe(2)
-      expect(fruits.find('Apple')).toEqual({name: 'Apple'})
+      expect(fruits.find('Apple').fold()).toEqual({name: 'Apple'})
     })
   })
 })
