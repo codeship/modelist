@@ -20,7 +20,20 @@ describe('Model', () => {
     expect(model.size).toBe(0)
     model.record(1)
     expect(model.size).toBe(1)
-   })
+  })
+
+  describe('#update', () => {
+    test('returns false if record is not found', () => {
+      const model = new Model
+      expect(model.update(1, {name: 'Kiwi'})).toBe(false)
+    })
+
+    test('returns false if record is not found', () => {
+      const model = new Model([{id: 1, name: 'Orange'}])
+      expect(model.update(1, {name: 'Kiwi'})).toBe(true)
+      expect(model.find(1).fold()).toEqual({id: 1, name: 'Kiwi'})
+    })
+  })
 
   describe('instantiation', () => {
     test('primaryKey prop can be overruled', () => {
