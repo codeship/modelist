@@ -9,6 +9,11 @@ export default class {
   // Key used by find, replace, update method to identify the record
   primaryKey = 'id'
 
+  // Optional
+  schema = {
+    id: String
+  }
+
   constructor(entries = []) {
     this._collection = [...entries]
   }
@@ -23,11 +28,13 @@ export default class {
     entries.forEach(e => this._collection.push(e))
   }
 
+  // Takes an entry and updates it with the passed in values
   update(key, update) {
     const index = this.__findByKey(this.primaryKey, key)
     if( isUndefined(index) ) return false
 
-    return this._collection[index] = {...this._collection[index], ...update }
+    this._collection[index] = {...this._collection[index], ...update }
+    return true
   }
 
   // Find a record by the primary key
