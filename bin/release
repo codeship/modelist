@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NEXT_VERSION=$1
+
+npm version NEXT_VERSION
