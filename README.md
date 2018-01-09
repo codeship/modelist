@@ -73,8 +73,9 @@ entry.fold(e => e.name) //= 'Banana'
 // What if you want to change the name before folding
 entry.map(e => e.name.toUpperCase()).fold() //= 'Banana'
 
-// What happened here is, that we actually only took one value of the object and transformed id. We can still fold it as we returned another Entry
- // This gives you full control over the flow of what's happening with your entries
+// What happened here is, that we actually only took one value of the object
+// and transformed it. We can still fold it afterwards as we receive a wrapped Entry.
+// This gives you full control over the flow of what's happening with your entries
 ```
 
 You can actually add custom methods for your entries, so let's see how to configure the model.
