@@ -1,68 +1,91 @@
-import { isUndefined } from 'lodash'
+import { isUndefined, forEach, has, defaultTo } from 'lodash'
 
-import Entry from './entry'
+import EntryWrapper from './entry'
 
 export default class {
-  // Array keeping the main data
-  _collection = []
 
-  // Key used by find, replace, update method to identify the record
-  primaryKey = 'id'
-
-  // Optional
-  schema = {
-    id: String
+  constructor(config = {}) {
+    this.__primaryKey = defaultTo(config.primaryKey, 'id')
+    this.__schema = defaultTo(config.schema, {id: String})
+    this.__collection = defaultTo(config.data, [])
+    this.__entry = EntryWrapper(defaultTo(config.methods, {}))
   }
 
-  constructor(entries = []) {
-    this._collection = [...entries]
-  }
-
-  // Return all records
+  /*
+   * Return all entries of the collection
+   *
+   **/
   all() {
-    return this._collection.slice(0)
+    return this.__collection.slice(0)
   }
 
-  // Add new entries to the collection
+  /*
+   * Record one or more entries
+   *
+   * @param entries <Array>
+   * @return undefined
+   **/
   record(...entries) {
-    entries.forEach(e => this._collection.push(e))
+    forEach(entries, e => this.__collection.push(e))
   }
 
-  // Takes an entry and updates it with the passed in values
+  /*
+   * Update entry based on primary key
+   *
+   * @param key <String>
+   * @params update <Object>
+   *
+   * @return Boolean
+   **/
   update(key, update) {
-    const index = this.__findByKey(this.primaryKey, key)
+    const index = this.__findByKey(this.__primaryKey, key)
     if( isUndefined(index) ) return false
 
-    this._collection[index] = {...this._collection[index], ...update }
+    this.__collection[index] = {...this.__collection[index], ...update }
     return true
   }
 
-  // Find a record by the primary key
+  /*
+   * Find entry by primary key value
+   *
+   * @param key <String>
+   *
+   * @return <null:Entry>
+   *
+   **/
   find(key) {
-    const index = this.__findByKey(this.primaryKey, key)
-    return isUndefined(index) ? null : this.__wrap(this._collection[index])
+    const index = this.__findByKey(this.__primaryKey, key)
+    return isUndefined(index) ? null : this.__wrap(this.__collection[index])
   }
 
-  // Return length of current collection
+  /*
+   * Return size of current collection
+   *
+   * @return <Number>
+   **/
   get size() {
-    return this._collection.length
+    return this.__collection.length
   }
 
-  // PRIVATE
+  /*
+   * -------
+   * PRIVATE
+   * -------
+   **/
 
-  // find element in the collection based on a key
   __findByKey(keyName, keyValue) {
     let index = 0
+
     const filter = (v, i) => {
       index = i
       return v[keyName] === keyValue
     }
 
-    if(this._collection.some(filter)) return index
+    if(this.__collection.some(filter)) return index
     return undefined
   }
 
   __wrap(value) {
-    return Entry(value)
+    return this.__entry(value)
   }
 }

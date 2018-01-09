@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Entry It's possible to wrap an Object into an Entry 1`] = `
+exports[`EntryWrapper It's possible to wrap an Object into an Entry 1`] = `
 Object {
   "fold": [Function],
   "map": [Function],

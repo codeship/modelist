@@ -1,8 +1,20 @@
-import Entry from '../src/entry'
+import EntryWrapper from '../src/entry'
+
+const Entry = EntryWrapper()
 
 const data = { id: 1, name: 'Banana', createdAt: Date.now()}
 
-describe('Entry', () => {
+describe('EntryWrapper', () => {
+  test('methods can be added onto Entry and can be used individually or in map', () => {
+    const localEntry = EntryWrapper({
+      foo: () => 'foo',
+      uppercase: (s) => s.toUpperCase()
+    })
+
+    expect(localEntry().foo()).toEqual('foo')
+    expect(localEntry().map('foo').uppercase()).toEqual('FOO')
+  })
+
   test('It\'s possible to wrap an Object into an Entry', () => {
     const entry = Entry(data)
     expect(entry).toMatchSnapshot()
@@ -45,7 +57,5 @@ describe('Entry', () => {
       const entry = Entry(data).map(capitalizeName)
       expect(entry.fold().name).toBe('BANANA')
     })
-
-
   })
 })
