@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/codebryo/modelist",
+  "repository": "https://github.com/codeship/modelist",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
