@@ -1,10 +1,11 @@
 {
-  "name": "modelist",
+  "name": "@codeship/modelist",
   "version": "0.1.0",
   "description": "Flexible modelstructure for clean data managment",
   "main": "dist/index.js",
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/codebryo/modelist",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
