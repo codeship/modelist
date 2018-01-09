@@ -21,6 +21,13 @@ describe('Model', () => {
     expect(model.size).toBe(1)
   })
 
+  test('#destroy one specific record', () => {
+    const model = new Model
+    model.record({id: 1, name: 'Banana'})
+    model.destroy(1)
+    expect(model.size).toBe(0)
+  })
+
   describe('#update', () => {
     test('returns false if record is not found', () => {
       const model = new Model
@@ -34,6 +41,15 @@ describe('Model', () => {
       const model = new Model({data})
       expect(model.update(1, {name: 'Kiwi'})).toBe(true)
       expect(model.find(1).fold()).toEqual({id: 1, name: 'Kiwi'})
+    })
+  })
+
+  describe('#size', () => {
+    test('returns length of collection', () => {
+      const model = new Model({
+        data: [1,2,3,4,5,6]
+      })
+      expect(model.size).toBe(6)
     })
   })
 
@@ -63,8 +79,15 @@ describe('Model', () => {
       }
 
       const fruits = new Model(Fruits)
+
+      const saladMaker = function(Entry) {
+        return Entry
+          .map('makeSalad')
+          .uppercase()
+      }
+
       expect(fruits.find('Apple').makeSalad()).toEqual('Apple Salad')
-      expect(fruits.find('Apple').map('makeSalad').uppercase()).toEqual('APPLE SALAD')
+      expect(saladMaker(fruits.find('Apple'))).toEqual('APPLE SALAD')
     })
   })
 })

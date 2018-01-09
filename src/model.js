@@ -30,9 +30,23 @@ export default class {
   }
 
   /*
+   * Remove one or more entries
+   *
+   * @param key <String|Number>
+   * @return undefined
+   **/
+  destroy(key) {
+    const index = this.__findByKey(this.__primaryKey, key)
+    if( isUndefined(index) ) return false
+
+    this.__collection.splice(index, 1)
+    return true
+  }
+
+  /*
    * Update entry based on primary key
    *
-   * @param key <String>
+   * @param key <String|Number>
    * @params update <Object>
    *
    * @return Boolean
@@ -48,7 +62,7 @@ export default class {
   /*
    * Find entry by primary key value
    *
-   * @param key <String>
+   * @param key <String|Number>
    *
    * @return <null:Entry>
    *
