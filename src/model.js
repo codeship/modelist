@@ -60,6 +60,16 @@ export default class {
   }
 
   /*
+   * Get the first element of the collection
+   *
+   * @return <null:Entry>
+   *
+   **/
+  first() {
+    return this.__collection[0] ? this.__wrap(this.__collection[0]) : null
+  }
+
+  /*
    * Find entry by primary key value
    *
    * @param key <String|Number>
