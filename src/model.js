@@ -79,7 +79,7 @@ export default class {
    **/
   find(key) {
     const index = this.__findByKey(this.__primaryKey, key)
-    return isUndefined(index) ? null : this.__wrap(this.__collection[index])
+    return isUndefined(index) ? null : this.__wrap(this.all()[index])
   }
 
   /*
