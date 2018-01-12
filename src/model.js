@@ -55,7 +55,7 @@ export default class {
     const index = this.__findByKey(this.__primaryKey, key)
     if( isUndefined(index) ) return false
 
-    this.__collection[index] = {...this.__collection[index], ...update }
+    this.__collection.splice(index, 1, {...this.__collection[index], ...update })
     return true
   }
 
