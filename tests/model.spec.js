@@ -1,17 +1,17 @@
 import Model from '../src/model'
 
 describe('Model', () => {
-  test('#constructor takes some default values', () => {
-    const data = [1,{a: 'foo'}, 'bar']
-    const model = new Model({data})
-    expect(model.all()).toEqual(data)
-  })
-
   test('#find returns an Entry based on the primary key and null if none is found', () => {
     const data = [{id: 1, name: 'Shoes'}, {id: 2, name: 'Jackets'}]
     const model = new Model({data})
     expect(model.find(1).fold()).toEqual(data[0])
     expect(model.find(3)).toEqual(null)
+  })
+
+  test('#first return the first Entry of the collection', () => {
+    const data = [{id: 1, name: 'Shoes'}, {id: 2, name: 'Jackets'}]
+    const model = new Model({data})
+    expect(model.first(1).fold()).toEqual(data[0])
   })
 
   test('#record allows for adding new records', () => {
@@ -54,6 +54,12 @@ describe('Model', () => {
   })
 
   describe('instantiation', () => {
+    test('takes some default values passed as data and they can be retrieved with #all', () => {
+      const data = [1,{a: 'foo'}, 'bar']
+      const model = new Model({data})
+      expect(model.all()).toEqual(data)
+    })
+
     test('primaryKey prop can be overruled', () => {
       const Fruits = {
         primaryKey: 'name'
