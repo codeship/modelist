@@ -95,5 +95,25 @@ describe('Model', () => {
       expect(fruits.find('Apple').makeSalad()).toEqual('Apple Salad')
       expect(saladMaker(fruits.find('Apple'))).toEqual('APPLE SALAD')
     })
+
+    test('passing validate:true will throw warnings for contents not fitting schemas', () => {
+      console.warn = jest.fn()
+
+      const data_valid = { id: 'a1', name: 'Phone', amount: 2}
+      const data_false = { name: 'Choclate', amount: 99}
+      const products  = new Model({
+        validate: true,
+        schema: {
+          id: String,
+          name: String,
+          amount: Number,
+        }
+      })
+
+      products.record(data_valid)
+      products.record(data_false)
+
+      expect(console.warn).toBeCalledWith("Entry is missing the defined schema key 'id'", data_false)
+    })
   })
 })

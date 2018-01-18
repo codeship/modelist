@@ -1,14 +1,20 @@
 import { isUndefined, forEach, has, defaultTo } from 'lodash'
 
 import EntryWrapper from './entry'
+import { validate } from './utils/schema'
 
 export default class {
 
   constructor(config = {}) {
     this.__primaryKey = defaultTo(config.primaryKey, 'id')
     this.__schema = defaultTo(config.schema, {id: String})
+    this.__options = {
+      validate: defaultTo(config.validate, false),
+    }
     this.__collection = defaultTo(config.data, [])
     this.__entry = EntryWrapper(defaultTo(config.methods, {}))
+
+    if(this.size > 0) forEach(this.__collection, e => this.__tryValidate(e))
   }
 
   /*
@@ -26,7 +32,7 @@ export default class {
    * @return undefined
    **/
   record(...entries) {
-    forEach(entries, e => this.__collection.push(e))
+    forEach(entries, e => this.__collection.push(this.__tryValidate(e)))
   }
 
   /*
@@ -111,5 +117,11 @@ export default class {
 
   __wrap(value) {
     return this.__entry(value)
+  }
+
+  __tryValidate(data) {
+    if(this.__options.validate)
+      return validate(data, this.__schema)
+    return data
   }
 }

@@ -132,6 +132,15 @@ Here is a full list of available params:
   // Change the primaryKey
   primaryKey: 'custom',
 
+  // Enforce that every entry is matched against the schema
+  // default: false
+  validate: false,
+
+  // Schema can be defined where each entry will be matched against
+  schema: {
+    custom: 'String'
+  },
+
   // Pass in data by default
   data: [...]
 
@@ -172,6 +181,30 @@ But you can actually also map over the value and get another Entry should you wa
 fruits.find('Apple').map('getSaladName').toString() //= Entry('Apple Salad')
 ```
 
+## Schemas
+
+Schemas allow defining how the root data structure of each data sent into the collection should look like.
+It support primiteves like `Number`, `String`, `Boolean`, `Object`, `Array` or event custom types.
+
+To leverage the schema validation, just add the `validation` key to your Model.
+For example you can successfully match this data:
+
+```js
+const data = {id: 1, name: 'Jane', favs: ['a', 'b'], settings: {}, custom: new Custom}
+```
+
+against this schema
+```js
+const schema = {
+  id: Number,
+  name: String,
+  favs: Array,
+  settings: Object,
+  custom: Custom
+}
+```
+
+If something is not fitting that schema it will print out a warning, but still try to process the data.
 ## Examples
 
 ### Use Modelist within in Vuex
