@@ -9,7 +9,8 @@ module.exports = {
     libraryTarget: 'umd'
   },
   externals: {
-    lodash: 'lodash'
+    lodash: 'lodash',
+    uuid: 'uuid'
   },
   module: {
     rules: [

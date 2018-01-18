@@ -18,7 +18,8 @@
     "webpack-cli": "^1.5.3"
   },
   "peerDependencies": {
-    "lodash-es": "^4.17.4"
+    "lodash-es": "^4.17.4",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "build": "webpack",
