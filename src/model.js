@@ -1,4 +1,5 @@
 import { isUndefined, forEach, has, defaultTo } from 'lodash'
+import uuid from 'uuid/v4'
 
 import EntryWrapper from './entry'
 import { validate } from './utils/schema'
@@ -6,15 +7,16 @@ import { validate } from './utils/schema'
 export default class {
 
   constructor(config = {}) {
+    this.__collection = []
     this.__primaryKey = defaultTo(config.primaryKey, 'id')
     this.__schema = defaultTo(config.schema, {id: String})
+    this.__entry = EntryWrapper(defaultTo(config.methods, {}))
     this.__options = {
       validate: defaultTo(config.validate, false),
+      setPrimaryKey: defaultTo(config.setPrimaryKey, false)
     }
-    this.__collection = defaultTo(config.data, [])
-    this.__entry = EntryWrapper(defaultTo(config.methods, {}))
-
-    if(this.size > 0) forEach(this.__collection, e => this.__tryValidate(e))
+    // If there is passed in data, record it right away
+    this.record(...defaultTo(config.data, []))
   }
 
   /*
@@ -32,7 +34,12 @@ export default class {
    * @return undefined
    **/
   record(...entries) {
-    forEach(entries, e => this.__collection.push(this.__tryValidate(e)))
+    forEach(entries, e => {
+      if(this.__options.setPrimaryKey && isUndefined(e[this.__primaryKey]))
+        e[this.__primaryKey] = uuid()
+      const validated = this.__tryValidate(e)
+      this.__collection.push(validated)
+    })
   }
 
   /*

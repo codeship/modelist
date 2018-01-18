@@ -10,7 +10,18 @@ It works great in reactive systems and flux stores like `Vuex`.
 
 If you want to see some real life examples, you'll find the further down.
 
-## Installation
+## Table of Contents:
+
+1. [Installation](#installation)
+2. [Basic Usage](#usage)
+3. [The Entry Object](#entry)
+4. [Customize a Model](#customize)
+  1. [Customize the Entry Object](#customize-entry)
+  2. [Use Schemas](#schema)
+5. [Examples](#examples)
+  1. [Using Modelist with Vuex](#example-vuex)
+
+## Installation <a name="installation"></a>
 
 `Modelist` can be added to your project with ease.
 
@@ -22,7 +33,7 @@ npm install -D @codeship/modelist
 yarn add @codeship/modelist
 ```
 
-## Usage
+## Basic Usage <a name="usage"></a>
 
 After adding `modelist` to your project, usage is quite simple.
 
@@ -77,7 +88,7 @@ users.size
 
 Internally all collection operations `destroy`, `record` and `update` use default Array methods, so reactive systems can track changes to the collection.
 
-## Single Entries
+## Single Entries <a name="entry"></a>
 
 Usually there is something that needs to be done with an entry of the collection when it gets retrieved on it's own.
 Therfore `Modelist` will wrap that result in an `Entry1 object.
@@ -113,7 +124,7 @@ entry.map(e => e.name.toUpperCase()).fold() //= 'Banana'
 ```
 
 You can even add custom methods to your entries, so let's see how to configure the model.
-## Customize a Model
+## Customize a Model <a name="customize"></a>
 
 The Model comes with a bunch of preconfigured values that should make live easy and get you started quickly without making you jump through a bunch of hoops. But sometimes those values are not right, and that's why you can configure a model instance to your liking
 Let's stary easy by changing the primaryKey.
@@ -131,6 +142,10 @@ Here is a full list of available params:
 {
   // Change the primaryKey
   primaryKey: 'custom',
+
+  // Enforce a primary key to be set on each record by Modelist (uuid/v4)
+  // default: false
+  setPrimaryKey: true
 
   // Enforce that every entry is matched against the schema
   // default: false
@@ -154,7 +169,7 @@ Here is a full list of available params:
 }
 ```
 
-## Using custom methods for entries
+### Using custom methods for entries <a name="customize-entry"></a>
 
 If you passed in methods to the Model, they're made available for you on the Entry object.
 By default those methods will be applied as folds so they just return whatever the function returns.
@@ -181,7 +196,7 @@ But you can actually also map over the value and get another Entry should you wa
 fruits.find('Apple').map('getSaladName').toString() //= Entry('Apple Salad')
 ```
 
-## Schemas
+### Schemas <a name="schemas"></a>
 
 Schemas allow defining how the root data structure of each data sent into the collection should look like.
 It support primiteves like `Number`, `String`, `Boolean`, `Object`, `Array` or event custom types.
@@ -205,9 +220,9 @@ const schema = {
 ```
 
 If something is not fitting that schema it will print out a warning, but still try to process the data.
-## Examples
+## Examples <a name="examples"></a>
 
-### Use Modelist within in Vuex
+### Use Modelist within in Vuex <a name="example-vuex"></a>
 
 Let's see a simple example how to use Modelist within in Vuex.
 This makes mutations, and actions way more convenient, but can also make your components a little more structured.
@@ -265,8 +280,3 @@ On the client this could look like this:
 ```
 
 The important piece here is, that by using the whole task collection, `task` will be the plain object for your convenience.
-
-
-## TBD
-
-Documentation and added support for Schema

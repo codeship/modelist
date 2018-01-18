@@ -71,6 +71,16 @@ describe('Model', () => {
       expect(fruits.find('Apple').fold()).toEqual({name: 'Apple'})
     })
 
+    test('setPrimaryKey will ensure that a primaryKey is set', () => {
+      const products = new Model({
+        primaryKey: 'productId',
+        setPrimaryKey: true,
+        data: [{name: 'Snickers'}]
+      })
+
+      expect(products.first().fold(p => p.productId)).toBeDefined()
+    })
+
     test('methods prop will be parsed onto Entry and can be used individually or in map', () => {
       const Fruits = {
         primaryKey: 'name',
