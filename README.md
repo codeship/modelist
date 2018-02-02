@@ -86,6 +86,12 @@ users.destroy(1)
 users.size
 ```
 
+**$$reset**
+This method will reset the Model and drop every data that's currently stored in the collection.
+```js
+users.$$reset()
+```
+
 Internally all collection operations `destroy`, `record` and `update` use default Array methods, so reactive systems can track changes to the collection.
 
 ## Single Entries <a name="entry"></a>

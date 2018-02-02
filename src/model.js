@@ -96,6 +96,16 @@ export default class {
   }
 
   /*
+   * Reset the collection and drop every stored record
+   *
+   * @return <void>
+   *
+   **/
+  $$reset() {
+    this.__collection.splice(0, this.__collection.length)
+  }
+
+  /*
    * Return size of current collection
    *
    * @return <Number>

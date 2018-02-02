@@ -53,6 +53,16 @@ describe('Model', () => {
     })
   })
 
+  describe('#$$reset', () => {
+    test('will drop all existing data from the collection', () => {
+      const model = new Model({
+        data: [1,2,3,4,5,6]
+      })
+      model.$$reset()
+      expect(model.size).toBe(0)
+    })
+  })
+
   describe('instantiation', () => {
     test('takes some default values passed as data and they can be retrieved with #all', () => {
       const data = [1,{a: 'foo'}, 'bar']
