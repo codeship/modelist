@@ -153,6 +153,12 @@ Here is a full list of available params:
   // default: false
   setPrimaryKey: true
 
+  // Allow Modelist to convert strings into objects with the value on the key text
+  // and and id based on the primaryKey
+  // e.g: ['Banana'] -> will be stored as [{text: 'Banana', id: uuid()}]
+  // default: false
+  convert: false,
+
   // Enforce that every entry is matched against the schema
   // default: false
   validate: false,
