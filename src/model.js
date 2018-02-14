@@ -1,4 +1,4 @@
-import { isUndefined, forEach, has, defaultTo } from 'lodash'
+import { isUndefined, forEach, has, defaultTo, isString } from 'lodash'
 import uuid from 'uuid/v4'
 
 import EntryWrapper from './entry'
@@ -13,7 +13,8 @@ export default class {
     this.__entry = EntryWrapper(defaultTo(config.methods, {}))
     this.__options = {
       validate: defaultTo(config.validate, false),
-      setPrimaryKey: defaultTo(config.setPrimaryKey, false)
+      setPrimaryKey: defaultTo(config.setPrimaryKey, false),
+      convert: defaultTo(config.convert, false)
     }
     // If there is passed in data, record it right away
     this.record(...defaultTo(config.data, []))
@@ -35,8 +36,8 @@ export default class {
    **/
   record(...entries) {
     forEach(entries, e => {
-      if(this.__options.setPrimaryKey && isUndefined(e[this.__primaryKey]))
-        e[this.__primaryKey] = uuid()
+      e = this.__tryConversion(e)
+      e = this.__tryPrimaryKey(e)
       const validated = this.__tryValidate(e)
       this.__collection.push(validated)
     })
@@ -136,9 +137,30 @@ export default class {
     return this.__entry(value)
   }
 
+  __addPrimaryKey(obj) {
+    obj[this.__primaryKey] = uuid()
+    return obj
+  }
+
   __tryValidate(data) {
     if(this.__options.validate)
       return validate(data, this.__schema)
     return data
   }
+
+  __tryConversion(value) {
+    if(this.__options.convert && isString(value))
+      return this.__addPrimaryKey({text: value})
+    return value
+  }
+
+  __tryPrimaryKey(value) {
+    if(this.__options.setPrimaryKey && isUndefined(value[this.__primaryKey])){
+      return isString(value) ?
+      console.warn('You are trying to set a primary Key on a String. Please use the `convert` option.') :
+      this.__addPrimaryKey(value)
+    }
+    return value
+  }
 }
+

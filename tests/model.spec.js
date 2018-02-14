@@ -70,6 +70,15 @@ describe('Model', () => {
       expect(model.all()).toEqual(data)
     })
 
+    test('accepts strings and coverts it to objects', () => {
+      const model = new Model({
+        convert: true,
+        data: ['Banana']
+      })
+      expect(model.first().fold().text).toEqual('Banana')
+
+    })
+
     test('primaryKey prop can be overruled', () => {
       const Fruits = {
         primaryKey: 'name'
