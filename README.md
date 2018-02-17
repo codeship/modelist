@@ -16,10 +16,10 @@ If you want to see some real life examples, you'll find the further down.
 2. [Basic Usage](#usage)
 3. [The Entry Object](#entry)
 4. [Customize a Model](#customize)
-  1. [Customize the Entry Object](#customize-entry)
-  2. [Use Schemas](#schema)
+    - [Customize the Entry Object](#customize-entry)
+    - [Use Schemas](#schema)
 5. [Examples](#examples)
-  1. [Using Modelist with Vuex](#example-vuex)
+    - [Using Modelist with Vuex](#example-vuex)
 
 ## Installation <a name="installation"></a>
 
