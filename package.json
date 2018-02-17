@@ -1,6 +1,6 @@
 {
   "name": "@codeship/modelist",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Flexible modelstructure for clean data managment",
   "main": "dist/index.js",
   "author": "Roman Kuba <roman.kuba@gmail.com>",
