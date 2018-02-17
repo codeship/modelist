@@ -1,14 +1,19 @@
 Modelist
 ========
 
-Flexible modelstructure for clean data mangement.
+Clientside flexible modelstrucutre for better data managment.
 
 ## What is Modelist
 
 Modelist is a client based collection system that makes handling data convenient.
 It works great in reactive systems and flux stores like `Vuex`.
+Common tasks like recording, updating, deleting and selecting are made easy.
 
-If you want to see some real life examples, you'll find the further down.
+For Real-life examples checkout the [Examples](#examples) section.
+
+## Contributing
+
+Contributions to this project are very welcome. Please read the [Contributing.md](CONTRIBUTING.md) document first.
 
 ## Table of Contents:
 
@@ -20,6 +25,7 @@ If you want to see some real life examples, you'll find the further down.
   2. [Use Schemas](#schema)
 5. [Examples](#examples)
   1. [Using Modelist with Vuex](#example-vuex)
+6. [Meta](#meta)
 
 ## Installation <a name="installation"></a>
 
@@ -292,3 +298,8 @@ On the client this could look like this:
 ```
 
 The important piece here is, that by using the whole task collection, `task` will be the plain object for your convenience.
+
+## Meta <a name="meta"></a>
+
+This Project is manage by [Roman Kuba <rkuba@cloudbees.com>](mailto:rkuba@cloudbees.com) from the Codeship Team.
+You can best reach me on Twitter [@Codebryo](https://twitter.com/Codebryo).
