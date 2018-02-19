@@ -1,7 +1,7 @@
 Modelist
 ========
 
-Flexible & Customizeable Modelstructure for awesome data management.
+Flexible & Customizable Modelstructure for awesome data management.
 
 ## What is Modelist
 
