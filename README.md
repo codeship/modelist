@@ -1,12 +1,12 @@
 Modelist
 ========
 
-Clientside flexible modelstrucutre for better data managment.
+Flexible & Customizeable Modelstructure for awesome data management.
 
 ## What is Modelist
 
-Modelist is a client based collection system that makes handling data convenient.
-It works great in reactive systems and flux stores like `Vuex`.
+Modelist is a client based collection model that makes handling data surprisingly convenient.
+It works great in reactive systems like `Vue` and `React` or flux stores like `Vuex` or `Redux`.
 Common tasks like recording, updating, deleting and selecting are made easy.
 
 For Real-life examples checkout the [Examples](#examples) section.
@@ -46,13 +46,14 @@ After adding `modelist` to your project, usage is quite simple.
 ```js
 import Model from '@codeship/modelist'
 ```
-This gives you access to the Model contructor. The easiest way to create a new collection is to instantiate a new Model.
+
+This gives you access to the Model contructor. That one can be used as is to have direct access to the everything `Modleist` brings to the table. Create a new instance, and start using it right away.
 
 ```js
 const users = new Model
 ```
 
-That's about it. Nothing more that needs to be done to get access to a new collection and all the default methods that come with it.
+**That's it**. Nothing more that needs to be done to get access to a new collection and all the default methods that come with it.
 
 
 **Add entries to the collection**
@@ -301,5 +302,5 @@ The important piece here is, that by using the whole task collection, `task` wil
 
 ## Meta <a name="meta"></a>
 
-This Project is manage by [Roman Kuba <rkuba@cloudbees.com>](mailto:rkuba@cloudbees.com) from the Codeship Team.
+This Project is managed by [Roman Kuba <rkuba@cloudbees.com>](mailto:rkuba@cloudbees.com) from the Codeship Team.
 You can best reach me on Twitter [@Codebryo](https://twitter.com/Codebryo).
