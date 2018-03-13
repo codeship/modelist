@@ -257,11 +257,11 @@ export default {
 
   mutations: {
     recordTask(state, entry) {
-      tasks.record(entry)
+      state.tasks.record(entry)
     },
 
     updateTask(state, id, data) {
-      tasks.update(id, data)
+      state.tasks.update(id, data)
     }
   },
 
