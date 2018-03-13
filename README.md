@@ -21,6 +21,7 @@ Contributions to this project are very welcome. Please read the [Contributing.md
 2. [Basic Usage](#usage)
 3. [The Entry Object](#entry)
 4. [Customize a Model](#customize)
+    - [Add custom filters](#customize-filters)
     - [Customize the Entry Object](#customize-entry)
     - [Use Schemas](#schema)
 5. [Examples](#examples)
@@ -181,7 +182,14 @@ Here is a full list of available params:
   },
 
   // Pass in data by default
-  data: [...]
+  data: [...],
+
+  // Add custom filters to the collection that will be made available
+  // as getters on the root of the model.
+  filters: {
+    // i.e.: return all completed tasks of a task list
+    completed: (collection) => collection.filter( item => item.done === true)
+  },
 
   // Add methods to entries
   methods: {
@@ -191,6 +199,29 @@ Here is a full list of available params:
     },
   }
 }
+```
+
+### Extending the model with custom filters <a name="customize-filters"></a>
+
+Sometimes you want specific subsets of all the stored data of your Model.
+That's a perfect opportunity to add filters to your instance.
+*Filters* are custom methods that allow you to alter the whole collection and do whatever you want with it.
+Filter functions always get a set of the whole collection passed in and allow to be processed.
+Afterwards they are made available as simple getter keys for your convenience.
+
+```js
+const tasks = new Model({
+  data: [
+    {task: 'Go for a walk', done: false},
+    {task: 'Buy Milk', done: true},
+    {taks: 'Feed the cat', done: true}
+  ],
+  filters: {
+    completed: (c) => c.filter(t => t.done === true)
+  }
+})
+
+console.log(tasks.completed.length) //= 2
 ```
 
 ### Using custom methods for entries <a name="customize-entry"></a>

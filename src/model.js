@@ -3,6 +3,7 @@ import uuid from 'uuid/v4'
 
 import EntryWrapper from './entry'
 import { validate } from './utils/schema'
+import { mergeFilters } from './utils/merge'
 
 export default class {
 
@@ -11,6 +12,7 @@ export default class {
     this.__primaryKey = defaultTo(config.primaryKey, 'id')
     this.__schema = defaultTo(config.schema, {id: String})
     this.__entry = EntryWrapper(defaultTo(config.methods, {}))
+    mergeFilters(this, defaultTo(config.filters, {}))
     this.__options = {
       validate: defaultTo(config.validate, false),
       setPrimaryKey: defaultTo(config.setPrimaryKey, false),

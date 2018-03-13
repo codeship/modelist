@@ -17,7 +17,7 @@ describe('Model', () => {
   test('#first return the first Entry of the collection', () => {
     const data = [{id: 1, name: 'Shoes'}, {id: 2, name: 'Jackets'}]
     const model = new Model({data})
-    expect(model.first(1).fold()).toEqual(data[0])
+    expect(model.first().fold()).toEqual(data[0])
   })
 
   test('#record allows for adding new records', () => {
@@ -104,6 +104,22 @@ describe('Model', () => {
       })
 
       expect(products.first().fold(p => p.productId)).toBeDefined()
+    })
+
+    test('filters allow to add customized collections to the model', () => {
+      const Tasks = {
+        data: [
+          {task: 'Go for a walk', done: false},
+          {task: 'Buy Milk', done: true},
+          {taks: 'Feed the cat', done: true}
+        ],
+        filters: {
+          completed: (c) => c.filter(t => t.done === true)
+        }
+      }
+
+      const tasks = new Model(Tasks)
+      expect(tasks.completed.length).toBe(2)
     })
 
     test('methods prop will be parsed onto Entry and can be used individually or in map', () => {
