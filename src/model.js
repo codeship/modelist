@@ -97,6 +97,20 @@ export default class {
   }
 
   /*
+   * Find entry by custom key and its value
+   *
+   * @param key <String>
+   * @param val <Any>
+   *
+   * @return <null:Entry>
+   *
+   **/
+  findBy(key, val) {
+    const index = this.__findByKey(key, val)
+    return isUndefined(index) ? null : this.__wrap(this.all()[index])
+  }
+
+  /*
    * Reset the collection and drop every stored record
    *
    * @return <void>

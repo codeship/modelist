@@ -77,6 +77,11 @@ users.first()
 users.find(1)
 ```
 
+**Retrieve one specific element of the collection based on a custom key**
+```js
+users.findBy('name', 'Jane Doe')
+```
+
 **Update an entry based on the primary key**
 Only the values that should be changed need to get passed in
 ```js

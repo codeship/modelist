@@ -8,6 +8,12 @@ describe('Model', () => {
     expect(model.find(3)).toEqual(null)
   })
 
+  describe('#findBy allows to filter by any key', () => {
+    const data = [{name: 'jane'}, {name: 'john'}, {name: 'bear'}]
+    const model = new Model({data})
+    expect(model.findBy('name', 'bear').fold()).toEqual(data[2])
+  })
+
   test('#first return the first Entry of the collection', () => {
     const data = [{id: 1, name: 'Shoes'}, {id: 2, name: 'Jackets'}]
     const model = new Model({data})
