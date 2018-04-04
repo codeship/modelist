@@ -1,3 +1,3 @@
-import Model from './model'
+import Model from "@/instance";
 
-module.exports = Model
+module.exports = Model;
