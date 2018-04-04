@@ -2,28 +2,25 @@ require("core-js/fn/object/entries");
 
 import { isPlainObject } from "lodash";
 
-export function validateAgainstSchema(entry, schema) {
+export function validateAgainstSchema(obj, schema) {
+  let objValid = true;
   Object.entries(schema).forEach(([key, type]) => {
-    const value = entry[key];
+    const value = obj[key];
 
     if (!value) {
-      return console.warn(
-        `Entry is missing the defined schema key '${key}'`,
-        entry
-      );
+      console.warn(`Entry is missing the defined schema key '${key}'`, obj);
+      return (objValid = false);
     }
 
     const { valid, expectedType } = checkType(value, type);
 
     if (!valid) {
-      return console.warn(
-        `Key '${key}' is not of type '${expectedType}'`,
-        entry
-      );
+      console.warn(`Key '${key}' is not of type '${expectedType}'`, obj);
+      return (objValid = false);
     }
   });
 
-  return entry;
+  return objValid;
 }
 
 const primitivesRE = /^(String|Number|Boolean|Function|Symbol)$/;

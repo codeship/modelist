@@ -1,9 +1,9 @@
 import { defaultTo, forEach, isString, isUndefined } from "lodash";
 import { processRecordEntry } from "./helpers";
+import { validateAgainstSchema } from "@/schema/schema";
 
 export default class ModelCore {
   constructor(options, data) {
-    // const { data, primaryKey, setPrimaryKey, schema, validate, convertStringToObject} = prepareConfig(config)
     this.$collection = [];
     this.$options = options;
 
@@ -124,6 +124,18 @@ export default class ModelCore {
   findBy(key, val) {
     const index = this.__findByKey(key, val);
     return isUndefined(index) ? null : this.__wrap(this.all()[index]);
+  }
+
+  /*
+   * Expose the validate functionality for manual checkings
+   *
+   * @param obj <Object>
+   *
+   * @return <Boolean>
+   *
+   **/
+  validate(obj) {
+    return validateAgainstSchema(obj, this.$options.schema);
   }
 
   /*

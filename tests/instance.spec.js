@@ -133,6 +133,23 @@ describe("#has", () => {
   });
 });
 
+describe("#validate", () => {
+  test("by default validates for a PK to be a String", () => {
+    const model = factory();
+    expect(model.validate({})).toBe(false);
+    expect(model.validate({ id: 1 })).toBe(false);
+    expect(model.validate({ id: "123" })).toBe(true);
+  });
+
+  test("will take custom PK into account", () => {
+    const model = factory({
+      primaryKey: "name"
+    });
+
+    expect(model.validate({ name: "Jane" })).toBe(true);
+  });
+});
+
 test("#find returns an Entry Object based on the PK and null if none is found", () => {
   const model = factory({ data: personArray });
   expect(model.find(1).fold()).toEqual(personArray[0]);
