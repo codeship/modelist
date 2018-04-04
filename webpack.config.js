@@ -1,16 +1,21 @@
-const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const path = require("path");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
+    libraryTarget: "umd"
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src")
+    }
   },
   externals: {
-    lodash: 'lodash',
-    uuid: 'uuid'
+    lodash: "lodash",
+    uuid: "uuid"
   },
   module: {
     rules: [
@@ -18,7 +23,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader"
         }
       }
     ]
