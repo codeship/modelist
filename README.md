@@ -104,6 +104,17 @@ Only the values that should be changed need to get passed in
 users.update(1, { name: "Jane Goodall" });
 ```
 
+**Replace entries based on the primary key**
+If you want to update multiple entries at once you can leverage `replace`.
+Notice though that this will really replace the element and not merge the existing values.
+
+```js
+users.replace(1, { name: "Jane Goodall" });
+```
+
+Should replace be called on an element that can't be matched it will be recorded instead.
+If you want to record elements though, `record` is recommended as it's faster.
+
 **Remove an entry from the collection**
 
 ```js
