@@ -34,7 +34,7 @@ export default class ModelCore {
    * Remove one or more entries
    *
    * @param key <String|Number>
-   * @return undefined
+   * @return Boolean
    **/
   destroy(key) {
     const index = this.__findByKey(this.$options.primaryKey, key);
@@ -61,6 +61,23 @@ export default class ModelCore {
       ...update
     });
     return true;
+  }
+
+  /*
+   * Replace one or more entries completely based on the primary key
+   *
+   * @param entries <Array>
+   *
+   * @return Boolean
+   **/
+  replace(...entries) {
+    entries.forEach(entry => {
+      const index = this.__findByKey(this.$options.primaryKey, entry[this.$options.primaryKey]);
+      if (isUndefined(index)) return this.record(entry)
+
+      this.$collection.splice(index, 1, entry)
+      return true
+    })
   }
 
   /*

@@ -180,6 +180,21 @@ test("#record allows for adding new records", () => {
   expect(model.size).toBe(1);
 });
 
+test("#replace allows to replace an existing entry", () => {
+  const model = factory({ data: personArray })
+  const replaceEntry = { id: 3, name: 'Bruce Willis', new: true }
+  model.replace(replaceEntry)
+  expect(model.find(3).fold()).toEqual(replaceEntry)
+})
+
+test("#replace creates a new entry if primareyKey won't match", () => {
+  const model = factory({ data: personArray })
+  expect(model.size).toBe(3)
+  const replaceEntry = { id: 4, name: 'Bruce Willis', new: true }
+  model.replace(replaceEntry)
+  expect(model.size).toBe(4)
+})
+
 test("#destroy one specific record", () => {
   const model = factory();
   model.record({ id: 1, name: "Banana" });
