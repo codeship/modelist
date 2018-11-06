@@ -67,8 +67,7 @@ members of the project's leadership.
 
 ## Project Maintainers
 
-* Marko Locher (Codeship Inc.) <<marko@codeship.com>>
-* Ethan Jones (Codeship Inc.) <<ethan@codeship.com>>
+* Roman Kuba (Cloudbees) <rkuba@cloudbees.com>
 
 ## Attribution
 
