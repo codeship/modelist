@@ -47,7 +47,7 @@ After adding `modelist` to your project, usage is quite simple.
 import Model from "@codeship/modelist";
 ```
 
-This gives you access to the Model contructor. That one can be used as is to have direct access to the everything `Modleist` brings to the table. Create a new instance, and start using it right away.
+This gives you access to the Model contructor. That one can be used as is to have direct access to the everything `Modelist` brings to the table. Create a new instance, and start using it right away.
 
 ```js
 const users = new Model();
