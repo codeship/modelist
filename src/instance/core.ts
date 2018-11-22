@@ -1,42 +1,39 @@
 import { defaultTo, forEach, isString, isUndefined } from "lodash";
-import { processRecordEntry } from "./helpers";
-import { validateAgainstSchema } from "@/schema/schema";
+// import { processRecordEntry } from "./helpers";
+// import { validateAgainstSchema } from "@/schema/schema";
 
-export default class ModelCore {
-  constructor(options, data) {
-    this.$collection = [];
+const processRecordEntry = function (entry: object, options: object): object { return entry };
+
+export default class Core {
+  $collection: object[] = [];
+  $options: object;
+
+  constructor(options: object, data: object[]) {
     this.$options = options;
 
     this.record(...data);
   }
 
-  /*
+  /**
    * Return all entries of the collection
-   *
-   **/
+   */
   all() {
     return this.$collection.slice(0);
   }
 
-  /*
+  /**
    * Record one or more entries
-   *
-   * @param entries <Array>
-   * @return undefined
-   **/
-  record(...entries) {
+   */
+  record(...entries: object[]) {
     forEach(entries, entry =>
       this.$collection.push(processRecordEntry(entry, this.$options))
     );
   }
 
-  /*
+  /**
    * Remove one or more entries
-   *
-   * @param key <String|Number>
-   * @return Boolean
-   **/
-  destroy(key) {
+   */
+  destroy(key: string | number) {
     const index = this.__findByKey(this.$options.primaryKey, key);
     if (isUndefined(index)) return false;
 
@@ -44,15 +41,10 @@ export default class ModelCore {
     return true;
   }
 
-  /*
+  /**
    * Update entry based on primary key
-   *
-   * @param key <String|Number>
-   * @params update <Object>
-   *
-   * @return Boolean
-   **/
-  update(key, update) {
+   */
+  update(key: string | number, update: object): boolean {
     const index = this.__findByKey(this.$options.primaryKey, key);
     if (isUndefined(index)) return false;
 
@@ -60,130 +52,89 @@ export default class ModelCore {
       ...this.$collection[index],
       ...update
     });
-    return true;
+    return true
   }
 
-  /*
+  /**
    * Replace one or more entries completely based on the primary key
-   *
-   * @param entries <Array>
-   *
-   * @return Boolean
-   **/
-  replace(...entries) {
+   */
+  replace(...entries: object[]): void {
     entries.forEach(entry => {
       const index = this.__findByKey(this.$options.primaryKey, entry[this.$options.primaryKey]);
       if (isUndefined(index)) return this.record(entry)
 
       this.$collection.splice(index, 1, entry)
-      return true
     })
   }
 
-  /*
+  /**
    * Get the first element of the collection
-   *
-   * @return <null:Entry>
-   *
-   **/
-  first() {
+   */
+  first(): object | null {
     return this.$collection[0] ? this.__wrap(this.$collection[0]) : null;
   }
 
-  /*
+  /**
    * Get the last element of the collection
-   *
-   * @return <null:Entry>
-   *
-   **/
-  last() {
+   */
+  last(): object | null {
     const lastIndex = this.$collection.length - 1;
     return this.$collection[lastIndex]
       ? this.__wrap(this.$collection[lastIndex])
       : null;
   }
 
-  /*
+  /**
    * Check if element with primary key exists
-   *
-   * @param key <String|Number>
-   *
-   * @return <Boolean>
-   *
-   **/
-  has(key) {
+   */
+  has(key: string | number): boolean {
     const index = this.__findByKey(this.$options.primaryKey, key);
     return isUndefined(index) ? false : true;
   }
 
-  /*
+  /**
    * Find entry by primary key value
-   *
-   * @param key <String|Number>
-   *
-   * @return <null:Entry>
-   *
-   **/
-  find(key) {
+   */
+  find(key: string | number) {
     const index = this.__findByKey(this.$options.primaryKey, key);
     return isUndefined(index) ? null : this.__wrap(this.all()[index]);
   }
 
-  /*
+  /**
    * Find entry by custom key and its value
-   *
-   * @param key <String>
-   * @param val <Any>
-   *
-   * @return <null:Entry>
-   *
    **/
-  findBy(key, val) {
+  findBy(key: string | number, val: any) {
     const index = this.__findByKey(key, val);
     return isUndefined(index) ? null : this.__wrap(this.all()[index]);
   }
 
-  /*
+  /**
    * Expose the validate functionality for manual checkings
-   *
-   * @param obj <Object>
-   *
-   * @return <Boolean>
-   *
-   **/
-  validate(obj) {
+   */
+  validate(obj: object) {
     return validateAgainstSchema(obj, this.$options.schema);
   }
 
-  /*
+  /**
    * Reset the collection and drop every stored record
-   *
-   * @return <void>
-   *
-   **/
-  $$reset() {
+   */
+  $$reset(): void {
     this.$collection.splice(0, this.$collection.length);
   }
 
-  /*
+  /**
    * Return size of current collection
-   *
-   * @return <Number>
-   **/
+   */
   get size() {
     return this.$collection.length;
   }
 
-  /*
-   * -------
-   * PRIVATE
-   * -------
-   **/
+  /** PRIVATE */
 
-  __findByKey(keyName, keyValue) {
+  private __findByKey(keyName: string | number, keyValue: any): number | undefined {
     let index = 0;
 
-    const filter = (v, i) => {
+    const filter = (v: any, i: number) => {
       index = i;
       return v[keyName] === keyValue;
     };
@@ -192,7 +143,7 @@ export default class ModelCore {
     return undefined;
   }
 
-  __wrap(value) {
+  private __wrap(value: object) {
     return this.$options.entryFactory(value);
   }
 }

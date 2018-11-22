@@ -1,8 +1,8 @@
-require("core-js/fn/object/entries");
+// require("core-js/fn/object/entries");
 
 import { isPlainObject } from "lodash";
 
-export function validateAgainstSchema(obj, schema) {
+export function validateAgainstSchema(obj: object, schema: object): boolean {
   let objValid = true;
   Object.entries(schema).forEach(([key, type]) => {
     const value = obj[key];
@@ -25,7 +25,7 @@ export function validateAgainstSchema(obj, schema) {
 
 const primitivesRE = /^(String|Number|Boolean|Function|Symbol)$/;
 
-function checkType(value, type) {
+function checkType(value: any, type: object): object {
   const valueType = typeof value;
   const expectedType = getType(type);
 
@@ -49,7 +49,7 @@ function checkType(value, type) {
   };
 }
 
-function getType(type) {
+function getType(type: object): string {
   const parts = type.toString().match(/^\s*function (\w+)/);
   return parts ? parts[1] : "";
 }

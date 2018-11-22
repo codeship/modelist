@@ -2,17 +2,21 @@
   "name": "@codeship/modelist",
   "version": "0.8.0",
   "description": "Flexible modelstructure for clean data managment",
-  "main": "dist/index.js",
+  "main": "dist/bundle.js",
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/codeship/modelist",
   "devDependencies": {
+    "@types/lodash": "^4.14.118",
+    "awesome-typescript-loader": "^5.2.1",
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "core-js": "^2.5.3",
     "jest": "^22.0.3",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.1.6",
     "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "webpack/webpack#next",
     "webpack-cli": "^1.5.3"
@@ -22,11 +26,11 @@
     "uuid": "^3.2.1"
   },
   "scripts": {
+    "watch": "webpack --mode=development --watch --config ./webpack.config.js",
     "build": "webpack",
     "test": "jest",
     "preversion": "npm test && npm build",
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags && rm -rf build/temp"
-  },
-  "dependencies": {}
+  }
 }
