@@ -6,7 +6,8 @@
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/codeship/modelist",
-  "devDependencies": {
+  "dependencies": {
+    "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.118",
     "awesome-typescript-loader": "^5.2.1",
     "babel": "^6.23.0",
@@ -16,6 +17,7 @@
     "core-js": "^2.5.3",
     "jest": "^22.0.3",
     "source-map-loader": "^0.2.4",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.1.6",
     "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "webpack/webpack#next",
