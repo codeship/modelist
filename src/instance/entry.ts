@@ -1,6 +1,7 @@
 import { isObjectLike, isString, mapValues } from 'lodash'
+import { IMethods } from '@/types'
 
-export default function(methods: object = {}) {
+export default function(methods: IMethods = {}) {
 
   delete methods['map']
   delete methods['fold']

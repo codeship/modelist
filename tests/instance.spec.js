@@ -17,15 +17,26 @@ describe("instantiation", () => {
   test("takes some default values passed as data and they can be retrieved with #all", () => {
     const data = [1, { a: "foo" }, "bar"];
     const model = factory({ data });
-    expect(model.all()).toEqual(data);
+    expect(model.all()).toEqual([
+      {
+        id: expect.any(String),
+        value: 1
+      },
+      {
+        a: 'foo'
+      },
+      {
+        id: expect.any(String),
+        value: 'bar'
+      }
+    ]);
   });
 
   test("accepts strings and coverts it to objects", () => {
     const model = factory({
-      convert: true,
       data: ["Banana"]
     });
-    expect(model.first().fold().text).toEqual("Banana");
+    expect(model.first().fold().value).toEqual("Banana");
   });
 
   test("primaryKey prop can be overruled", () => {

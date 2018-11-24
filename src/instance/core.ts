@@ -1,14 +1,13 @@
-import { defaultTo, forEach, isString, isUndefined } from "lodash";
-// import { processRecordEntry } from "./helpers";
-// import { validateAgainstSchema } from "@/schema/schema";
-
-const processRecordEntry = function (entry: object, options: object): object { return entry };
+import { forEach, isUndefined } from "lodash";
+import { processRecordEntry } from "./helpers";
+import { validateAgainstSchema } from "@/schema/schema";
+import { IOptionsConfig, IEntry } from '@/types'
 
 export default class Core {
   $collection: object[] = [];
-  $options: object;
+  $options: IOptionsConfig;
 
-  constructor(options: object, data: object[]) {
+  constructor(options: object = {}, data: object[] | string[]) {
     this.$options = options;
 
     this.record(...data);
@@ -24,7 +23,7 @@ export default class Core {
   /**
    * Record one or more entries
    */
-  record(...entries: object[]) {
+  record(...entries: Array<IEntry|number|string>) {
     forEach(entries, entry =>
       this.$collection.push(processRecordEntry(entry, this.$options))
     );
@@ -58,7 +57,7 @@ export default class Core {
   /**
    * Replace one or more entries completely based on the primary key
    */
-  replace(...entries: object[]): void {
+  replace(...entries: IEntry[]): void {
     entries.forEach(entry => {
       const index = this.__findByKey(this.$options.primaryKey, entry[this.$options.primaryKey]);
       if (isUndefined(index)) return this.record(entry)

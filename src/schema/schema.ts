@@ -1,9 +1,9 @@
 import "core-js/fn/object/entries";
 
 import { isPlainObject } from "lodash"; 
-import { Entry, Schema } from "@/types"
+import { IEntry, ISchema } from "@/types"
 
-export function validateAgainstSchema(obj: Entry , schema: Schema): boolean {
+export function validateAgainstSchema(obj: IEntry , schema: ISchema): boolean {
   let objValid = true;
 
   Object.entries(schema).forEach(([key, type]) => {

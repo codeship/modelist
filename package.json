@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.118",
+    "@types/uuid": "^3.4.4",
     "awesome-typescript-loader": "^5.2.1",
     "babel": "^6.23.0",
     "babel-loader": "^7.1.2",
