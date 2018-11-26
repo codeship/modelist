@@ -22,6 +22,7 @@ Contributions to this project are very welcome. Please read the [Contributing.md
 4.  [Customize a Model](#customize)
     * [Add custom filters](#customize-filters)
     * [Customize the Entry Object](#customize-entry)
+    * [Record standard Arrays](#arrays)
     * [Use Schemas](#schema)
 5.  [Examples](#examples)
     * [Using Modelist with Vuex](#example-vuex)
@@ -47,7 +48,7 @@ After adding `modelist` to your project, usage is quite simple.
 import Model from "@codeship/modelist";
 ```
 
-This gives you access to the Model contructor. That one can be used as is to have direct access to the everything `Modleist` brings to the table. Create a new instance, and start using it right away.
+This gives you access to the Model contructor. That one can be used as is to have direct access to the everything `Modelist` brings to the table. Create a new instance, and start using it right away.
 
 ```js
 const users = new Model();
@@ -60,6 +61,9 @@ const users = new Model();
 ```js
 users.record({ id: 1, name: "Jane Doe" });
 ```
+
+You can also record singe values like a `Number` or a `String`.
+`Modelist` will convert those into objects for you. [-> Record standard Arrays](#arrays)
 
 **Get all entries of the collection**
 
@@ -195,12 +199,6 @@ Here is a full list of available params:
   // default: false
   setPrimaryKey: true
 
-  // Allow Modelist to convert strings into objects with the value on the key text
-  // and and id based on the primaryKey
-  // e.g: ['Banana'] -> will be stored as [{text: 'Banana', id: uuid()}]
-  // default: false
-  convert: false,
-
   // Enforce that every entry is matched against the schema
   // default: false
   validate: false,
@@ -285,6 +283,17 @@ fruits
   .map("getSaladName")
   .toString(); //= Entry('Apple Salad')
 ```
+
+## Record standard Arrays <a name="arrays"></a>
+
+In some instances the data is not prepared as an array of objects, but simple values. `Modelist` allows you to record simple values alongside of objects. If you pass in an simple value, it will be transformed into an object with an unique ID based on the `primaryKey` and the `value` stored alongside it.
+
+```js
+model.record(...[1, 'fred'])
+
+model.all() // [{ id: uuid(), value: 1 }, { id: uuid(), value: 'fred' }]
+```
+
 
 ### Schemas <a name="schemas"></a>
 
