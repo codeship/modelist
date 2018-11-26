@@ -30,10 +30,8 @@
   },
   "scripts": {
     "watch": "webpack --mode=development --watch --config ./webpack.config.js",
-    "build": "webpack",
+    "build:production": "webpack --mode=production --config ./webpack.config.js",
     "test": "jest",
-    "preversion": "npm test && npm build",
-    "version": "npm run build && git add -A dist",
-    "postversion": "git push && git push --tags && rm -rf build/temp"
+    "prepublishOnly": "yarn test && yarn build:production"
   }
 }
