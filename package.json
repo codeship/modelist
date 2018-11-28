@@ -6,12 +6,12 @@
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/codeship/modelist",
-  "dependencies": {
+  "devDependencies": {
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.118",
     "@types/uuid": "^3.4.4",
     "awesome-typescript-loader": "^5.2.1",
-    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
