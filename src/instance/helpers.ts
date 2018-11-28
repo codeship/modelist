@@ -17,9 +17,9 @@ export function processRecordEntry(entry: IEntry | number | string, options: IOp
   const needsConversion = isString(entry) || isNumber(entry)
   const shouldSetPrimaryKey = needsConversion || options.setPrimaryKey;
   if (needsConversion) entry = { value: entry };
-  entry = entry as IEntry
+  entry = Object.assign({}, entry) as IEntry
 
-  entry = shouldSetPrimaryKey
+  entry = shouldSetPrimaryKey && !entry[options.primaryKey]
     ? setPrimaryKey(entry, options.primaryKey)
     : entry;
   entry = options.validate ? validate(entry, options.schema) : entry;

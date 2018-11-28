@@ -14,29 +14,10 @@ const factory = (options = {}) => {
 };
 
 describe("instantiation", () => {
-  test("takes some default values passed as data and they can be retrieved with #all", () => {
+  test("records passed in data", () => {
     const data = [1, { a: "foo" }, "bar"];
     const model = factory({ data });
-    expect(model.all()).toEqual([
-      {
-        id: expect.any(String),
-        value: 1
-      },
-      {
-        a: 'foo'
-      },
-      {
-        id: expect.any(String),
-        value: 'bar'
-      }
-    ]);
-  });
-
-  test("accepts strings and coverts it to objects", () => {
-    const model = factory({
-      data: ["Banana"]
-    });
-    expect(model.first().fold().value).toEqual("Banana");
+    expect(model.size).toBe(3)
   });
 
   test("primaryKey prop can be overruled", () => {
@@ -184,12 +165,44 @@ test("#last return the last Entry of the collection", () => {
   expect(model.last().fold()).toEqual(personArray[2]);
 });
 
-test("#record allows for adding new records", () => {
-  const model = factory();
-  expect(model.size).toBe(0);
-  model.record(1);
-  expect(model.size).toBe(1);
-});
+describe('#record', () => {
+  test("allows for adding data to the collection", () => {
+    const model = factory();
+    expect(model.size).toBe(0);
+    model.record(1);
+    expect(model.size).toBe(1);
+  });
+
+  test("turns simple values into objects with primaryKey", () => {
+    const data = [1, { a: "foo" }, "bar"];
+    const model = factory();
+    model.record(...data)
+    expect(model.all()).toEqual([
+      {
+        id: expect.any(String),
+        value: 1
+      },
+      {
+        a: 'foo'
+      },
+      {
+        id: expect.any(String),
+        value: 'bar'
+      }
+    ]);
+  })
+
+  test("won't replace if the primaryKey is already assigned", () => {
+    const entry = { id: 1, name: 'fixed value'}
+    const model = factory({
+      setPrimaryKey: true
+    })
+
+    model.record(entry)
+    expect(model.all()).toEqual([entry])
+  })
+})
+
 
 test("#replace allows to replace an existing entry", () => {
   const model = factory({ data: personArray })
