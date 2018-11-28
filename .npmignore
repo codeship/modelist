@@ -1,6 +1,7 @@
 src/
 tests/
 .babelrc
-.jest.config.js
+jest.config.js
+tsconfig.json
 webpack.config.js
 yarn.lock
