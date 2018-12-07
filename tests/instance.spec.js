@@ -113,6 +113,27 @@ describe("instantiation", () => {
   });
 });
 
+describe("#all", () => {
+  test('returns all entries', () => {
+    const model = factory({ data: personArray });
+    expect(model.all()).toEqual(personArray)
+  })
+
+  test('accepts an callback function that runs on every entry', () => {
+    const model = factory({ data: personArray });
+    const result = model.all(item => {
+      delete item.id
+      return item
+    })
+    expect(result).toEqual([
+      { name: "Jane" },
+      { name: "John" },
+      { name: "Wally" }
+    ])
+  })
+
+})
+
 describe("#has", () => {
   test("returns true if an element with a given PK exists", () => {
     const model = factory({ data: personArray });
@@ -202,7 +223,6 @@ describe('#record', () => {
     expect(model.all()).toEqual([entry])
   })
 })
-
 
 test("#replace allows to replace an existing entry", () => {
   const model = factory({ data: personArray })

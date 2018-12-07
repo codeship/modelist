@@ -16,14 +16,16 @@ export default class Core {
   /**
    * Return all entries of the collection
    */
-  all() {
+  all(cb?: (item: object) => any): any[] {
+    if (typeof cb === 'function')
+      return this.$collection.slice(0).map(cb)
     return this.$collection.slice(0);
   }
 
   /**
    * Record one or more entries
    */
-  record(...entries: Array<IEntry|number|string>) {
+  record(...entries: Array<IEntry|number|string>): void {
     forEach(entries, entry =>
       this.$collection.push(processRecordEntry(entry, this.$options))
     );
@@ -32,7 +34,7 @@ export default class Core {
   /**
    * Remove one or more entries
    */
-  destroy(key: string | number) {
+  destroy(key: string | number): boolean {
     const index = this.__findByKey(this.$options.primaryKey, key);
     if (isUndefined(index)) return false;
 
