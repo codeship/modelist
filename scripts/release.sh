@@ -15,6 +15,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   npm version "$VERSION"
   npm publish --otp=$(op get totp npm)
 else
-    echo 'Release aborted!'
+    echo "Release aborted!"
 fi
-./\''//\
